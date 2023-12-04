@@ -1,0 +1,89 @@
+[
+  {
+    "idCard": "123",
+    "email": "123",
+    "password": "$2b$10$sYoI3kXksW.iTDGRCTCFhuUv4TMg33wixu9eJ43n/RhtIE7D/ccy2"
+  },
+  {
+    "idCard": "1233",
+    "email": "1233",
+    "password": "$2b$10$KQe5oVYbUsLEbCyKmiZHmeGAYrVQAkUn0FLO20XFz.4AEUc5DcjEW"
+  },
+  {
+    "idCard": "12222",
+    "email": "12222",
+    "password": "$2b$10$Gp0iWi7xFf6Xi9/VcXVl1OXyMb.Tqf3g4oQr8tFFSBYsZGjfEma8W"
+  },
+  {
+    "idCard": "1231",
+    "email": "123131",
+    "password": "$2b$10$tY2zE9zB2cCQe3AwQBCs6edrxLxMJpSDHs.glcSaB0JSER7qtI.cG"
+  },
+  {
+    "idCard": "123131",
+    "email": "231313",
+    "password": "$2b$10$jVLpZjMun40oFgYS38BbrufU/y13P59DBW9lcFoHWXmhsbZgL4yyq"
+  },
+  {
+    "idCard": "13131",
+    "email": "12313",
+    "password": "$2b$10$waPoT3sogA20XdSShasQ2uOvMyHwLFQx.EQzwZ6qnjwVgD4XAPFvS"
+  },
+  {
+    "idCard": "12313131313",
+    "email": "1313113131",
+    "password": "$2b$10$0T09a1eI6OlYlUq5.vDS4O73N1HocTuzQwBfApb.8BoJSkQannxc2"
+  },
+  {
+    "idCard": "132131",
+    "email": "231313123",
+    "password": "$2b$10$zWMFw8fyHuOGC3zaEltKUu6k3/KU6pS1kWG/EcYyqFkGaPaOZIjAW"
+  },
+  {
+    "idCard": "313131",
+    "email": "13131312",
+    "password": "$2b$10$B84b3FmW8Uykshm3mH37/OoO2sLNpBEOtRWl/z5msUzPoHEl.7Rh."
+  },
+  {
+    "fullName": "2131",
+    "idCard": "31313",
+    "age": "1231313",
+    "email": "13131",
+    "password": "$2b$10$66NrIjGEM.t9rY3uOMTTuOV9jUXvym5FeusOk9rbmZLK7ttirSkky"
+  },
+  {
+    "fullName": "12311231321",
+    "idCard": "1231313123",
+    "age": "123131231231",
+    "email": "123133123123",
+    "password": "$2b$10$sNgJfv8/0n3KCN0V9Hyr1O9WnLvCsqbV/0oVH05qDt2oXAObHJnt6"
+  },
+  {
+    "fullName": "123132131231",
+    "idCard": "3122313",
+    "age": "123131321",
+    "email": "2313132131",
+    "password": "$2b$10$h7no.RSm9BdVH1XZt.3i0.z9xCSdC9GNpFStDFcLMzci1CpmssqHG"
+  },
+  {
+    "fullName": "13131",
+    "idCard": "131231",
+    "age": "12313132",
+    "email": "123123131",
+    "password": "$2b$10$JoH2bRLoVvg2D0a0/Lzz/u8BjmXqpESlFkKcM3FX/CPNXNcAkCStO"
+  },
+  {
+    "fullName": "21312313",
+    "idCard": "1231313213",
+    "age": "1231313123",
+    "email": "12313212312141",
+    "password": "$2b$10$wCN7tpvJEGtZNBn/zqv6F.G/gnJeg0WpBN8hL/LwfGhD0qlxpmRQy"
+  },
+  {
+    "fullName": "2313131",
+    "idCard": "12414451",
+    "age": "142141",
+    "email": "142414",
+    "password": "$2b$10$1N4PL29DFZUBBVTIm7ny4.Oh5X24Ps..XwwuWG7pjUsaMT3DCzTIu"
+  }
+]
