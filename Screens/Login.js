@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import CommonHeader from './CommonHeader ';
 
 const Login = ({ navigation }) => {
     const [idCard, setIdCard] = useState('');
     const [password, setPassword] = useState('');
+
+    const goToSignUp = () => {
+        navigation.navigate('SignUp'); // if there is no account
+    };
 
     const handleLogin = async () => {
         if (!idCard || !password) {
@@ -12,7 +17,7 @@ const Login = ({ navigation }) => {
             return;
         }
     
-        const serverUrl = 'http://192.168.1.156:3000/login'; // Use your server URL here
+        const serverUrl = 'http://192.168.1.39:3000/login'; // Use your server URL here
     
         try {
             const response = await axios.post(serverUrl, {
@@ -47,6 +52,7 @@ const Login = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+            <CommonHeader />
             <Text style={styles.title}>Login</Text>
             <View style={styles.inputContainer}>
                 <TextInput
@@ -64,7 +70,10 @@ const Login = ({ navigation }) => {
                 />
             </View>
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText}>LOGIN</Text>
+                <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={goToSignUp}>
+                <Text style={styles.buttonText}>I don't have an account</Text>
             </TouchableOpacity>
         </View>
     );
@@ -80,7 +89,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 30,
-        color: 'rgb(138, 43, 226)',
+        color: 'turquoise',
         marginBottom: 20,
         textAlign: 'center',
     },
@@ -98,11 +107,12 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     button: {
-        backgroundColor: 'rgb(138, 43, 226)',
+        backgroundColor: 'turquoise',
         borderRadius: 8,
-        paddingVertical: 15,
+        paddingVertical: 10, // Adjusted padding to make the button smaller
         width: '100%',
         alignItems: 'center',
+        marginBottom: 10,
     },
     buttonText: {
         color: 'white',
@@ -112,36 +122,3 @@ const styles = StyleSheet.create({
 });
 
 export default Login;
-
-
-
-// const [idCard, setIdCard] = useState('');
-//     const [password, setPassword] = useState('');
-//     const serverIP = 'http://192.168.56.1:3000'; // Update this IP address
-//     const handleLogin = async () => {
-//     try {
-//         const response = await fetch(`${serverIP}/login`, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 idCard,
-//                 password,
-//             }),
-//         });
-
-//         const data = await response.json();
-//         console.log('Login Response:', data);
-
-//         // Handle success or show an error message to the user
-//         if (data.success) {
-//             navigation.navigate('HomeLoged', { user: data.user });
-//         } else {
-//             // Handle error
-//             console.error(data.error);
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// };

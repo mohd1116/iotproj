@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import axios from 'axios';
+import CommonHeader from './CommonHeader ';
 
 const SignUp = ({ navigation }) => {
     const [fullName, setFullName] = useState('');
@@ -21,7 +22,7 @@ const SignUp = ({ navigation }) => {
             return;
         }
 
-        const serverUrl = 'http://192.168.1.156:3000/signup'; // Use your server URL here
+        const serverUrl = 'http://192.168.1.39:3000/signup'; // Use your server URL here
 
         try {
             const response = await axios.post(serverUrl, {
@@ -59,6 +60,7 @@ const SignUp = ({ navigation }) => {
 
     return (
         <ScrollView contentContainerStyle={styles.contentContainer}>
+            <CommonHeader />
             <Text style={styles.title}>Sign Up</Text>
             <View style={styles.inputContainer}>
                 <TextInput
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 40,
-        color: 'rgb(138, 43, 226)',
+        color: 'turquoise',
         marginBottom: 30,
         textAlign: 'center',
     },
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     button: {
-        backgroundColor: 'rgb(138, 43, 226)',
+        backgroundColor: 'turquoise',
         borderRadius: 8,
         paddingVertical: 15,
         width: '100%',
@@ -152,44 +154,3 @@ const styles = StyleSheet.create({
 });
 
 export default SignUp;
-
-
-
-// const serverIP = 'http://192.168.56.1:3000'; // Update this IP address
-
-//     const handleSignUp = async ({navigation}) => {
-//         try {
-//             // Check if passwords match
-//             if (password !== confirmPassword) {
-//                 console.error('Passwords do not match');
-//                 return;
-//             }
-
-//             const response = await fetch(`${serverIP}/signup`, {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify({
-//                     fullName,
-//                     idCard,
-//                     age,
-//                     email,
-//                     password,
-//                     confirmPass: confirmPassword,
-//                 }),
-//             });
-
-//             const data = await response.json();
-
-//             // Handle success or show an error message to the user
-//             if (data.success) {
-//                 navigation.navigate('HomeLoged', { user: data.user });
-//             } else {
-//                 // Handle error
-//                 console.error(data.error);
-//             }
-//         } catch (error) {
-//             console.error('Error:', error);
-//         }
-//     };

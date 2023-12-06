@@ -34,7 +34,7 @@ const headerStyle = StyleSheet.create({
     backgroundColor: 'rgb(32, 32, 36)', // Deep dark background with a touch of purple
   },
   headerTitle: {
-    color: 'rgb(138, 43, 226)', // Purple text color
+    color: 'turquoise', // Purple text color
     fontWeight: 'bold',
   },
 });

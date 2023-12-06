@@ -201,14 +201,7 @@ const QuestionScreen = ({ navigation }) => {
         value={responses.familyHeartProblems} />
       
 
-        <TouchableOpacity style={{
-          backgroundColor: 'rgb(138, 43, 226)',
-          borderRadius: 8,
-          paddingVertical: 15,
-          width: '100%',
-          alignItems: 'center',
-          marginTop: 20
-          }} 
+        <TouchableOpacity style={styles.button} 
             onPress={handleSubmit}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
@@ -218,7 +211,7 @@ const QuestionScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    contentContainer: {
+  contentContainer: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -231,43 +224,53 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 20,
-    color: 'rgb(138, 43, 226)',
+    color: 'turquoise',
     alignSelf: 'flex-start', // Align the labels to the start
     marginBottom: 10,
   },
   input: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        marginBottom: 10,
-        borderRadius: 8,
-        fontSize: 16,
-        color: 'white',
-  },
-  buttonText: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    marginBottom: 10,
+    borderRadius: 8,
+    fontSize: 16,
     color: 'white',
+  },
+  button: {
+    backgroundColor: 'turquoise',
+    borderRadius: 8,
+    paddingVertical: 15,
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  
+  buttonText: {
+    color: 'white', // Set the text color to white
     fontSize: 18,
     fontWeight: 'bold',
   },
 });
+
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        marginBottom: 10,
-        borderRadius: 8,
-        fontSize: 16,
-        color: 'white',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    marginBottom: 10,
+    borderRadius: 8,
+    fontSize: 16,
+    color: 'white',
   },
   inputAndroid: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        marginBottom: 10,
-        borderRadius: 8,
-        fontSize: 16,
-        color: 'white',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    marginBottom: 10,
+    borderRadius: 8,
+    fontSize: 16,
+    color: 'white',
   },
 });
 

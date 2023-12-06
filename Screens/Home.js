@@ -11,7 +11,7 @@ const Home = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-             <Image 
+            <Image 
                 source={require('../assets/logo.png')} // Replace with your image URL
                 style={styles.image}
             />
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 30,
-        color: 'rgb(138, 43, 226)', // Purple text color
+        color: 'turquoise', // Purple text color
         marginBottom: 20,
         textAlign: 'center',
     },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     button: {
-        backgroundColor: 'rgb(138, 43, 226)', // Purple button color
+        backgroundColor: 'turquoise', // Purple button color
         borderRadius: 8,
         paddingVertical: 15,
         paddingHorizontal: 20,

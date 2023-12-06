@@ -85,5 +85,12 @@
     "age": "142141",
     "email": "142414",
     "password": "$2b$10$1N4PL29DFZUBBVTIm7ny4.Oh5X24Ps..XwwuWG7pjUsaMT3DCzTIu"
+  },
+  {
+    "fullName": "Malek",
+    "idCard": "1",
+    "age": "1",
+    "email": "MalekTest@gmail.com",
+    "password": "$2b$10$le6.HCe.p3QgJMpt/Uh2LOh24Ph1mABPPeB0tfrQHjvIeof2fPw7G"
   }
 ]
