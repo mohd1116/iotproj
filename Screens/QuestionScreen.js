@@ -3,24 +3,23 @@ import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 
 import axios from 'axios';
 import { Alert } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-
+import { useUser } from './UserContext';
 const QuestionScreen = ({ navigation }) => {
+  const { idCard } = useUser();
   const [responses, setResponses] = useState({
     diseases: '',
     medicalConditions: '',
     pastDiseases: '',
     hypertensionDiabetes: '',
+    allergiesDetails: '',
     epilepsySyncopal: '',
     chronicConditions: '',
-    currentMedications: '',
-    allergiesDetails: '',
     regularMedication: '',
     medicationSideEffects: '',
-    drugProblems: '',
     drugAddiction: '',
     surgicalOperations: '',
-    smokingAlcohol: '',
     familyCongenitalDisease: '',
+    smokingAlcohol: '',
     familyHeartProblems: ''
   });
   const smokingAlcoholItems = [
@@ -45,10 +44,8 @@ const QuestionScreen = ({ navigation }) => {
       allergiesDetails,
       epilepsySyncopal,
       chronicConditions,
-      currentMedications,
       regularMedication,
       medicationSideEffects,
-      drugProblems,
       drugAddiction,
       surgicalOperations,
       familyCongenitalDisease,
@@ -67,6 +64,7 @@ const QuestionScreen = ({ navigation }) => {
 
     try {
       const response = await axios.post(serverUrl, {
+        idCard,
         diseases,
         medicalConditions,
         pastDiseases,
@@ -74,10 +72,8 @@ const QuestionScreen = ({ navigation }) => {
         allergiesDetails,
         epilepsySyncopal,
         chronicConditions,
-        currentMedications,
         regularMedication,
         medicationSideEffects,
-        drugProblems,
         drugAddiction,
         surgicalOperations,
         familyCongenitalDisease,
@@ -113,73 +109,86 @@ const QuestionScreen = ({ navigation }) => {
         <Text style={styles.label}>Do you have any diseases?</Text>
         <TextInput style={styles.input} 
         placeholder="e.g., high blood pressure, diabetes" 
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('diseases', text)} 
         value={responses.diseases} />
 
         <Text style={styles.label}>Do you have any medical conditions?</Text>
         <TextInput style={styles.input} 
+        placeholder= "e.g., sleep apnea, chronic kidney disease"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('medicalConditions', text)} 
         value={responses.medicalConditions} />
 
         <Text style={styles.label}>Did you suffer from any diseases in the past?</Text>
         <TextInput style={styles.input} 
+        placeholder="e.g., childhood asthma, past infections"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('pastDiseases', text)} 
         value={responses.pastDiseases} />
 
         <Text style={styles.label}>What about hypertension and diabetes?</Text>
         <TextInput style={styles.input} 
+        placeholder="Specify if you have/had either"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('hypertensionDiabetes', text)} 
         value={responses.hypertensionDiabetes} />
 
         <Text style={styles.label}>Do you have any allergies ?</Text>
         <TextInput style={styles.input} 
-        placeholder="(medications, foods, environmental)" 
+        placeholder="e.g., pollen, peanuts, penicillin"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('allergiesDetails', text)} 
         value={responses.allergiesDetails} />
 
         <Text style={styles.label}>What about epilepsy or syncopal episodes?</Text>
         <TextInput style={styles.input} 
+        placeholder="Indicate any history of seizures or fainting"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('epilepsySyncopal', text)} 
         value={responses.epilepsySyncopal} />
 
         <Text style={styles.label}>Do you have any chronic medical conditions ?</Text>
         <TextInput style={styles.input} 
-        placeholder="(e.g., diabetes, hypertension)" 
+        placeholder="e.g., chronic bronchitis, heart disease"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('chronicConditions', text)} 
         value={responses.chronicConditions} />
 
-       <Text style={styles.label}>Are you currently taking any medications?</Text>
-        <TextInput style={styles.input} 
-        onChangeText={(text) => handleChange('currentMedications', text)} 
-        value={responses.currentMedications} />
-
         <Text style={styles.label}>Are you taking any medicine or drug regularly?</Text>
         <TextInput style={styles.input} 
+        multiline = {true}
+        placeholder="List any regular use (add ',' between each one)"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('regularMedication', text)} 
         value={responses.regularMedication} />
 
         <Text style={styles.label}>Have you noticed any side effects from the medication you currently take?</Text>
         <TextInput style={styles.input} 
+        placeholder="e.g., dizziness, stomach upset"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('medicationSideEffects', text)} 
         value={responses.medicationSideEffects} />
 
-        <Text style={styles.label}>Did you take some drugs that caused to you some problems such as nausea or fainting?</Text>
-        <TextInput style={styles.input} 
-        onChangeText={(text) => handleChange('drugProblems', text)} 
-        value={responses.drugProblems} />
-
         <Text style={styles.label}>Are you addicted to any drugs ?</Text>
         <TextInput style={styles.input} 
+        placeholder="(Don't worry it will save on your local storage only)"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('drugAddiction', text)} 
         value={responses.drugAddiction} />
 
         <Text style={styles.label}>Have you undergone any surgical operations during your life ?</Text>
         <TextInput style={styles.input} 
+        multiline = {true}
+        placeholder="List any past surgeries"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('surgicalOperations', text)} 
         value={responses.surgicalOperations} />
      
         <Text style={styles.label}>Do you have someone of your family who has a congenital disease ?</Text>
         <TextInput style={styles.input} 
+        placeholder= "e.g., family history of cystic fibrosis"
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         onChangeText={(text) => handleChange('familyCongenitalDisease', text)} 
         value={responses.familyCongenitalDisease} />
       
@@ -187,6 +196,7 @@ const QuestionScreen = ({ navigation }) => {
         <Text style={styles.label}>do you smoke and/or drinking alcohol?</Text>
         <RNPickerSelect
         style={pickerSelectStyles}
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
         placeholder={{ label: 'Select your Status', value: null }}
         items={smokingAlcoholItems}
         onValueChange={(value) => handleChange('smokingAlcohol', value)}
@@ -194,12 +204,17 @@ const QuestionScreen = ({ navigation }) => {
         useNativeAndroidPickerStyle={false}
         />
       
-      
         <Text style={styles.label}>Do you have someone of your family who has a congenital disease ?</Text>
-        <TextInput style={styles.input} 
-        onChangeText={(text) => handleChange('familyHeartProblems', text)} 
-        value={responses.familyHeartProblems} />
-      
+        <RNPickerSelect 
+        style={pickerSelectStyles} 
+        placeholderTextColor="rgba(255, 255, 255, 0.7)"
+        items={[
+          { label: 'Yes', value: 'Yes' },
+          { label: 'No', value: 'No' },
+        ]}
+        onValueChange={(value) => handleChange('familyHeartProblems', value)}
+        value={responses.familyHeartProblems} 
+        />
 
         <TouchableOpacity style={styles.button} 
             onPress={handleSubmit}>

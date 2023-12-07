@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 
 import RNPickerSelect from 'react-native-picker-select';
 import { Alert } from 'react-native';
 import axios from 'axios';
+import { useUser } from './UserContext';
 
-const FirstScreen = ({ navigation }) => { 
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
+const FirstScreen = ({ navigation }) => {
+  const { idCard } = useUser();
   const [age, setAge] = useState('');
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
@@ -21,20 +21,17 @@ const FirstScreen = ({ navigation }) => {
   ];
   const ageItems = Array.from({ length: 81 }, (v, k) => ({ label: `${18 + k} years`, value: 18 + k }));
 
-  
-
-  const hundleFirstScreen = async () => {
-    if (!name || !surname || !age || !height || !weight || !maritalStatus) {
+  const handleFirstScreen = async () => {
+    if ( !age || !height || !weight || !maritalStatus) {
       Alert.alert("Missing Information", "Please fill in all fields before proceeding.");
       return;
     }
-
+    console.log(idCard);
     const serverUrl = 'http://192.168.1.156:3000/FirstScreen'; // Use your server URL here
 
     try {
       const response = await axios.post(serverUrl, {
-        name,
-        surname,
+        idCard,
         age,
         height,
         weight,
@@ -42,13 +39,12 @@ const FirstScreen = ({ navigation }) => {
       });
 
       if (response.data.success) {
-        Alert.alert('Validation Successful!');
+        Alert.alert('Validation Successful!',
+        'Now please read the questions and answer it!.');
         navigation.navigate('QuestionScreen'); // Replace 'QuestionScreen' with your actual screen name
       } else {
         Alert.alert('Validation Error', response.data.error || 'Data validation failed');
       }
-
-      
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
@@ -61,106 +57,84 @@ const FirstScreen = ({ navigation }) => {
         Alert.alert('Error', 'An error occurred during data validation.');
       }
     }
-  
   };
-  
+
   return (
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        <View style={styles.formContainer}>
-          <Text style={styles.label}>Name:</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setName}
-            value={name}
-          />
-    
-          <Text style={styles.label}>Surname:</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setSurname}
-            value={surname}
-          />
-    
-          <Text style={styles.label}>Age:</Text>
-          <RNPickerSelect
-            style={pickerSelectStyles}
-            placeholder={{ label: 'Select your age...', value: null }}
-            items={ageItems}
-            onValueChange={setAge}
-            value={age}
-            useNativeAndroidPickerStyle={false}
-          />
-    
-          <Text style={styles.label}>Height (cm):</Text>
-          <RNPickerSelect
-            style={pickerSelectStyles}
-            placeholder={{ label: 'Select your height...', value: null }}
-            items={heightItems}
-            onValueChange={setHeight}
-            value={height}
-            useNativeAndroidPickerStyle={false}
-          />
-    
-          <Text style={styles.label}>Weight (kg):</Text>
-          <RNPickerSelect
-            style={pickerSelectStyles}
-            placeholder={{ label: 'Select your weight...', value: null }}
-            items={weightItems}
-            onValueChange={setWeight}
-            value={weight}
-            useNativeAndroidPickerStyle={false}
-          />
-    
-          <Text style={styles.label}>Marital Status:</Text>
-          <RNPickerSelect
-            style={pickerSelectStyles}
-            placeholder={{ label: 'Select Marital Status', value: null }}
-            items={maritalStatusItems}
-            onValueChange={setMaritalStatus}
-            value={maritalStatus}
-            useNativeAndroidPickerStyle={false}
-          />
-    
-          <TouchableOpacity style={styles.button} onPress={hundleFirstScreen}>
-            <Text style={styles.buttonText}>NextPage</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.formContainer}>
+        <Text style={styles.label}>Age:</Text>
+        <RNPickerSelect
+          style={styles.pickerSelect}
+          placeholder={{ label: 'Select your age...', value: null }}
+          items={ageItems}
+          onValueChange={setAge}
+          value={age}
+        />
+
+        <Text style={styles.label}>Height (cm):</Text>
+        <RNPickerSelect
+          style={styles.pickerSelect}
+          placeholder={{ label: 'Select your height...', value: null }}
+          items={heightItems}
+          onValueChange={setHeight}
+          value={height}
+        />
+
+        <Text style={styles.label}>Weight (kg):</Text>
+        <RNPickerSelect
+          style={styles.pickerSelect}
+          placeholder={{ label: 'Select your weight...', value: null }}
+          items={weightItems}
+          onValueChange={setWeight}
+          value={weight}
+        />
+
+        <Text style={styles.label}>Marital Status:</Text>
+        <RNPickerSelect
+          style={styles.pickerSelect}
+          placeholder={{ label: 'Select Marital Status', value: null }}
+          items={maritalStatusItems}
+          onValueChange={setMaritalStatus}
+          value={maritalStatus}
+        />
+
+        <TouchableOpacity style={styles.button} onPress={handleFirstScreen}>
+          <Text style={styles.buttonText}>NextPage</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  contentContainer: {
+  container: {
     flexGrow: 1,
-    justifyContent: 'flex-start', // Adjusted for scrollable content
-    alignItems: 'center', // Center items horizontally
-    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgb(32, 32, 36)',
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
   formContainer: {
     width: '100%',
   },
   label: {
-    fontSize: 20,
-    color: 'rgb(138, 43, 226)',
-    alignSelf: 'flex-start', // Align the labels to the start
-    marginBottom: 10,
+    fontSize: 18,
+    color: 'turquoise',
+    alignSelf: 'flex-start',
+    marginBottom: 5,
   },
   input: {
-    fontSize: 16,
-    height: 50,
-    width: '100%',
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 15,
-    paddingLeft: 10,
-    paddingRight: 10,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    marginBottom: 10,
+    borderRadius: 8,
+    fontSize: 16,
+    color: 'white',
   },
   button: {
-    backgroundColor: 'rgb(138, 43, 226)',
+    backgroundColor: 'turquoise',
     borderRadius: 8,
     paddingVertical: 15,
     width: '100%',
@@ -172,32 +146,25 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    height: 50,
-    width: '100%',
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 15,
-    paddingLeft: 10,
-    paddingRight: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  },
-  inputAndroid: {
-    fontSize: 16,
-    height: 50,
-    width: '100%',
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 15,
-    paddingLeft: 10,
-    paddingRight: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  pickerSelect: {
+    inputIOS: {
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      paddingHorizontal: 20,
+      paddingVertical: 15,
+      marginBottom: 10,
+      borderRadius: 8,
+      fontSize: 16,
+      color: 'white',
+    },
+    inputAndroid: {
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      paddingHorizontal: 20,
+      paddingVertical: 15,
+      marginBottom: 10,
+      borderRadius: 8,
+      fontSize: 16,
+      color: 'white',
+    },
   },
 });
 

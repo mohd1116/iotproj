@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import axios from 'axios';
 import CommonHeader from './CommonHeader ';
+import { useUser } from './UserContext';
 
 const SignUp = ({ navigation }) => {
-    const [fullName, setFullName] = useState('');
-    const [idCard, setIdCard] = useState('');
-    const [age, setAge] = useState('');
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const { idCard,setIdCard } = useUser();//to save it globaly
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-
+    
     const handleSignUp = async () => {
-        if (!fullName || !idCard || !age || !email || !password || !confirmPassword) {
+        if (!name || !surname || !idCard || !email || !password || !confirmPassword) {
             alert('Please fill in all fields');
             return;
         }
@@ -22,13 +23,13 @@ const SignUp = ({ navigation }) => {
             return;
         }
 
-        const serverUrl = 'http://192.168.1.39:3000/signup'; // Use your server URL here
+        const serverUrl = 'http://192.168.1.156:3000/signup'; // Use your server URL here
 
         try {
             const response = await axios.post(serverUrl, {
-                fullName,
                 idCard,
-                age,
+                name,
+                surname,
                 email,
                 password,
                 confirmPass: confirmPassword,
@@ -64,10 +65,16 @@ const SignUp = ({ navigation }) => {
             <Text style={styles.title}>Sign Up</Text>
             <View style={styles.inputContainer}>
                 <TextInput
+                    placeholder="Name"
                     style={styles.input}
-                    placeholder="Full Name"
                     placeholderTextColor="rgba(255, 255, 255, 0.7)"
-                    onChangeText={setFullName}
+                    onChangeText={setName}
+                />
+                <TextInput
+                    placeholder="Surname"
+                    style={styles.input}
+                    placeholderTextColor="rgba(255, 255, 255, 0.7)"
+                    onChangeText={setSurname}
                 />
                 <TextInput
                     style={styles.input}
@@ -75,13 +82,6 @@ const SignUp = ({ navigation }) => {
                     placeholderTextColor="rgba(255, 255, 255, 0.7)"
                     keyboardType="numeric"
                     onChangeText={setIdCard}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Age"
-                    placeholderTextColor="rgba(255, 255, 255, 0.7)"
-                    keyboardType="numeric"
-                    onChangeText={setAge}
                 />
                 <TextInput
                     style={styles.input}

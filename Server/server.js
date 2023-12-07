@@ -12,9 +12,9 @@ app.use(cors());
 
 // Endpoint to handle signup requests
 app.post('/signup', async (req, res) => {
-    const { fullName, idCard, age, email, password, confirmPass } = req.body;
+    const {  idCard,name, surname,  email, password, confirmPass } = req.body;
 
-    if (!fullName || !email || !password || !idCard || !age || !confirmPass) {
+    if ( !name || !surname || !email || !password || !idCard || !confirmPass) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -30,7 +30,7 @@ app.post('/signup', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    userData.push({ fullName, idCard, age, email, password: hashedPassword });
+    userData.push({  idCard, email, password: hashedPassword });
 
     await writeUserData(userData);
 
@@ -41,37 +41,53 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
     const { idCard, password } = req.body;
 
+    // Read user data from your data source
     const userData = await readUserData();
 
-    const user = userData.find(u => u.idCard === idCard);
-
+    // Find the user by idCard or email
+    const user = userData.find(u => u.idCard === idCard );
+    // Check if user exists and password is correct
     if (user && await bcrypt.compare(password, user.password)) {
-        res.json({ success: true, message: 'Login successful', user: { ...user, password: undefined } });
+        // User found and password matches
+        // Remove password from the user data before sending response
+        const userWithoutPassword = { ...user, password: undefined };
+        res.json({ success: true, message: 'Login successful', user: userWithoutPassword });
     } else {
-        res.status(401).json({ error: 'Invalid ID Number or password' });
+        // User not found or password doesn't match
+        res.status(401).json({ error: 'Invalid ID Card/Email or password' });
     }
 });
 
-  
+const getUserData = async (idCard) => {
+    const userInfo = (await readUserData()).find(user => user.idCard === idCard) || {};
+    const userAdditionalData = (await readAdditionalUserData()).find(data => data.idCard === idCard) || {};
+    const userQuestionnaireData = (await readQuestionnaireData()).find(data => data.idCard === idCard) || {};
+    if (userInfo) {
+        delete userAdditionalData.idCard;
+        delete userQuestionnaireData.idCard;
+        delete userInfo.password;
+    return {
+        ...userInfo, // Ensure userInfo is always an object
+        ...userAdditionalData,
+        ...userQuestionnaireData
+    };
+    } else {
+    // Handle the case where userInfo is not found
+    return {}; // or any appropriate default value
+    }
+};
 app.post('/FirstScreen', async (req, res) => {
-    const { name, surname, age, height, weight, maritalStatus } = req.body;
+    const { idCard, age, height, weight, maritalStatus } = req.body;
 
     // Validate the received data
-    if (!name || !surname || !age || !height || !weight || !maritalStatus) {
+    if ( !age || !height || !weight || !maritalStatus) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
     // Read existing data
-    let userData;
-    try {
-        const data = await fs.readFile('userData.json', 'utf-8');
-        userData = JSON.parse(data);
-    } catch (error) {
-        userData = [];
-    }
-
+    const userData = await readAdditionalUserData();
     // Add new data
-    userData.push({ name, surname, age, height, weight, maritalStatus });
+    userData.push({ idCard, age, height, weight, maritalStatus });
 
     // Write updated data back to file
     try {
@@ -89,12 +105,29 @@ const readUserData = async () => {
         return [];
     }
 };
+const readAdditionalUserData = async () => {
+    try {
+        const data = await fs.readFile('userData.json', 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        return [];
+    }
+};
 
+const readQuestionnaireData = async () => {
+    try {
+        const data = await fs.readFile('questionnaireData.json', 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        return [];
+    }
+};
 const writeUserData = async (data) => {
     await fs.writeFile('userInfo.json', JSON.stringify(data, null, 2), 'utf-8');
 };
 app.post('/questions', async (req, res) => {
     const {
+        idCard,
         diseases,
         medicalConditions,
         pastDiseases,
@@ -102,36 +135,30 @@ app.post('/questions', async (req, res) => {
         allergiesDetails,
         epilepsySyncopal,
         chronicConditions,
-        currentMedications,
         regularMedication,
         medicationSideEffects,
-        drugProblems,
         drugAddiction,
         surgicalOperations,
         familyCongenitalDisease,
+        smokingAlcohol,
         familyHeartProblems,
-        smokingAlcohol
     } = req.body;
 
     // Validate the received data
     if (!diseases || !medicalConditions || !pastDiseases || !hypertensionDiabetes || 
-        !allergiesDetails || !epilepsySyncopal || !chronicConditions || !currentMedications ||
-        !regularMedication || !medicationSideEffects || !drugProblems || !drugAddiction ||
+        !allergiesDetails || !epilepsySyncopal || !chronicConditions ||
+        !regularMedication || !medicationSideEffects || !drugAddiction ||
         !surgicalOperations || !familyCongenitalDisease || !familyHeartProblems || !smokingAlcohol) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
-
+try{
     // Read existing data
-    let questionnaireData;
-    try {
-        const data = await fs.readFile('questionnaireData.json', 'utf-8');
-        questionnaireData = JSON.parse(data);
-    } catch (error) {
-        questionnaireData = [];
-    }
+    const questionnaireData= await readQuestionnaireData();
+    
 
     // Add new data
     questionnaireData.push({
+        idCard,
         diseases,
         medicalConditions,
         pastDiseases,
@@ -139,25 +166,50 @@ app.post('/questions', async (req, res) => {
         allergiesDetails,
         epilepsySyncopal,
         chronicConditions,
-        currentMedications,
         regularMedication,
         medicationSideEffects,
-        drugProblems,
         drugAddiction,
         surgicalOperations,
         familyCongenitalDisease,
+        smokingAlcohol,
         familyHeartProblems,
-        smokingAlcohol
     });
 
     // Write updated data back to file
-    try {
+   
         await fs.writeFile('questionnaireData.json', JSON.stringify(questionnaireData, null, 2), 'utf-8');
-        res.json({ success: true, message: 'Questionnaire data saved successfully' });
+        
+   
+        const combinedUserData = await getUserData(idCard);
+        if (!combinedUserData.idCard) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const allUserDataFile = 'allUserData.json';
+        let allUserData = await readAllUserData(allUserDataFile);
+        allUserData.push(combinedUserData);
+        await fs.writeFile(allUserDataFile, JSON.stringify(allUserData, null, 2), 'utf-8');
+
+        res.json({ success: true, message: 'Questionnaire data saved successfully', filePath: allUserDataFile });
     } catch (error) {
-        return res.status(500).json({ error: 'Error writing to file' });
+        console.error('Error in catch block:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+const readAllUserData = async (filePath) => {
+    try {
+        const fileData = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(fileData);
+    } catch (readError) {
+        if (readError.code === 'ENOENT') {
+            console.log('Creating new file for all user data.');
+            return []; // Return an empty array if the file does not exist
+        } else {
+            throw readError;
+        }
+    }
+};
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

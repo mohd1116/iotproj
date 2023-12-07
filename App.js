@@ -8,9 +8,11 @@ import Login from "./Screens/Login";
 import SignUp from "./Screens/SignUp";
 import QuestionScreen from "./Screens/QuestionScreen";
 import FirstScreen from "./Screens/FirstScreen";
+import { UserProvider } from './Screens/UserContext';
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
+    <UserProvider>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -26,6 +28,7 @@ const App = () => {
         <Stack.Screen name="FirstScreen" component={FirstScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+    </UserProvider>
   )
 };
 

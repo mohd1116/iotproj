@@ -17,7 +17,7 @@ const Login = ({ navigation }) => {
             return;
         }
     
-        const serverUrl = 'http://192.168.1.39:3000/login'; // Use your server URL here
+        const serverUrl = 'http://192.168.1.156:3000/login'; // Use your server URL here
     
         try {
             const response = await axios.post(serverUrl, {
@@ -27,7 +27,7 @@ const Login = ({ navigation }) => {
     
             if (response.data.success) {
                 alert('Login Successful!');
-                navigation.navigate('QuestionScreen'); // Make sure this navigation route is correctly named
+                navigation.navigate('FirstScreen'); // Make sure this navigation route is correctly named
             } else {
                 alert(response.data.error || 'Login failed');
             }
