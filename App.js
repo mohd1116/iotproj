@@ -9,6 +9,7 @@ import SignUp from "./Screens/SignUp";
 import QuestionScreen from "./Screens/QuestionScreen";
 import FirstScreen from "./Screens/FirstScreen";
 import { UserProvider } from './Screens/UserContext';
+import FormDataScreen from "./Screens/FormDataScreen";
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="QuestionScreen" component={QuestionScreen} />
         <Stack.Screen name="FirstScreen" component={FirstScreen} />
+        <Stack.Screen name="FormDataScreen" component={FormDataScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     </UserProvider>

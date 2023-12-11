@@ -211,6 +211,18 @@ const readAllUserData = async (filePath) => {
     }
 };
 
+app.get('/FormDataScreen', async (req, res) => {
+    try {
+        const allUserData = await readAllUserData('allUserData.json');
+        res.json(allUserData);
+    } catch (error) {
+        console.error('Error fetching all user data:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

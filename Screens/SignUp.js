@@ -23,7 +23,7 @@ const SignUp = ({ navigation }) => {
             return;
         }
 
-        const serverUrl = 'http://192.168.1.156:3000/signup'; // Use your server URL here
+        const serverUrl = 'http://192.168.1.65:3000/signup'; // Use your server URL here
 
         try {
             const response = await axios.post(serverUrl, {

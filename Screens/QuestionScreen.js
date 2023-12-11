@@ -3,7 +3,9 @@ import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 
 import axios from 'axios';
 import { Alert } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import { useUser } from './UserContext';
+import { useUser } from './UserContext'
+import FormDataScreen from './FormDataScreen';
+
 const QuestionScreen = ({ navigation }) => {
   const { idCard } = useUser();
   const [responses, setResponses] = useState({
@@ -60,7 +62,7 @@ const QuestionScreen = ({ navigation }) => {
       Alert.alert('Missing Information', 'Please fill in all fields');
       return;
     }
-    const serverUrl = 'http://192.168.1.156:3000/questions'; // Replace with your server URL
+    const serverUrl = 'http://192.168.1.65:3000/questions'; // Replace with your server URL
 
     try {
       const response = await axios.post(serverUrl, {
@@ -83,7 +85,7 @@ const QuestionScreen = ({ navigation }) => {
       
       if (response.data.success) {
         Alert.alert('Success', 'Form submitted successfully');
-        navigation.navigate('Home');//this should navigate to your last page AHMED
+        navigation.navigate('FormDataScreen');//this should navigate to your last page AHMED
       } else {
         Alert.alert('Error', response.data.error || 'Form submission failed');
       }
@@ -96,7 +98,7 @@ const QuestionScreen = ({ navigation }) => {
           Alert.alert('Network Error', 'Network error or server is down');
         }
       } else {
-        console.error('Error handling form submission:', error);
+        console.error('Error handling form submission:', error); // MOHAMMED EXPLAIN is occured
         Alert.alert('Error', 'An error occurred during form submission.');
       }
     }

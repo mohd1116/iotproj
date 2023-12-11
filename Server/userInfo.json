@@ -1,17 +1,12 @@
 [
   {
-    "idCard": "123",
-    "email": "123",
-    "password": "$2b$10$sXFC/c8tlV2V8GyCo8ge8ubWeKQ1SBh1eGKkn1liveGpkthOy2STG"
+    "idCard": "1",
+    "email": "1",
+    "password": "$2b$10$fuPSlWRUcwNBD9IJq1C68.q9QY6rxgMRP24DmN/J2iPl4c8bgAG4q"
   },
   {
-    "idCard": "141",
-    "email": "141",
-    "password": "$2b$10$9a8Yu8ORc19hUKG5Cx3o6e8H/fPwV91WRuLULdcjfQ.UZaXz/Krj6"
-  },
-  {
-    "idCard": "131",
-    "email": "131",
-    "password": "$2b$10$kHAeF0YuS/rp/maXXSqdHuVnOnJ4dgvsU7kSuH9ZgUN1zdDP1qIwq"
+    "idCard": "2",
+    "email": "A",
+    "password": "$2b$10$IZmkNk5C3a6dizgNFpWB/.AxH80N5zMbqcWC0nUBEGpQtvckGO4Ae"
   }
 ]

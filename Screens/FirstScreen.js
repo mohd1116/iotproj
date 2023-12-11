@@ -27,7 +27,7 @@ const FirstScreen = ({ navigation }) => {
       return;
     }
     console.log(idCard);
-    const serverUrl = 'http://192.168.1.156:3000/FirstScreen'; // Use your server URL here
+    const serverUrl = 'http://192.168.1.65:3000/FirstScreen'; // Use your server URL here
 
     try {
       const response = await axios.post(serverUrl, {

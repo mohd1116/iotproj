@@ -10,14 +10,17 @@ const Login = ({ navigation }) => {
     const goToSignUp = () => {
         navigation.navigate('SignUp'); // if there is no account
     };
-
+    const goToFormDataScreen = () => {
+        navigation.navigate("FormDataScreen", { idCard: idCard });
+    };
+    
     const handleLogin = async () => {
         if (!idCard || !password) {
             alert('Please enter your email and password');
             return;
         }
     
-        const serverUrl = 'http://192.168.1.156:3000/login'; // Use your server URL here
+        const serverUrl = 'http://192.168.1.65:3000/login'; // Use your server URL here
     
         try {
             const response = await axios.post(serverUrl, {
@@ -47,6 +50,7 @@ const Login = ({ navigation }) => {
                 alert('An error occurred during login.');
             }
         }
+        
     };
     
 
@@ -74,6 +78,10 @@ const Login = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={goToSignUp}>
                 <Text style={styles.buttonText}>I don't have an account</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={goToFormDataScreen}>
+                <Text style={styles.buttonText}>test FormDataScreen </Text>
             </TouchableOpacity>
         </View>
     );
