@@ -31,7 +31,9 @@
     "react-native-segmented-control-tab": "^4.0.0",
     "react-native-web": "~0.19.6",
     "react-navigation": "^5.0.0",
-    "rn-fetch-blob": "^0.12.0"
+    "rn-fetch-blob": "^0.12.0",
+    "expo-camera": "~13.4.4",
+    "expo-location": "~16.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

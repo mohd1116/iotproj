@@ -32,5 +32,22 @@
     "familyCongenitalDisease": "A",
     "smokingAlcohol": "smoking",
     "familyHeartProblems": "Yes"
+  },
+  {
+    "idCard": "121",
+    "diseases": "23131",
+    "medicalConditions": "2313",
+    "pastDiseases": "12313",
+    "hypertensionDiabetes": "12313",
+    "allergiesDetails": "23131",
+    "epilepsySyncopal": "2131",
+    "chronicConditions": "1312",
+    "regularMedication": "3123",
+    "medicationSideEffects": "3123",
+    "drugAddiction": "123123",
+    "surgicalOperations": "2131",
+    "familyCongenitalDisease": "2313",
+    "smokingAlcohol": "drinking",
+    "familyHeartProblems": "Yes"
   }
 ]

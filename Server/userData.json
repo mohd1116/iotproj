@@ -12,5 +12,12 @@
     "height": 171,
     "weight": 62,
     "maritalStatus": "Single"
+  },
+  {
+    "idCard": "121",
+    "age": 22,
+    "height": 105,
+    "weight": 46,
+    "maritalStatus": "Divorced"
   }
 ]
