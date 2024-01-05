@@ -26,7 +26,7 @@ const FormDataScreen = ({ navigation }) => {
 
   const fetchAllUserData = async () => {
     try {
-      const serverUrl = "http://10.0.2.2:3000/FormDataScreen";
+      const serverUrl = "http://192.168.1.156:3000/FormDataScreen";
       const response = await fetch(serverUrl);
       const userData = await response.json();
       setAllUserData(userData);

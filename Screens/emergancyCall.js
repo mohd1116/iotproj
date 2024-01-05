@@ -1,63 +1,139 @@
+// import React, { useState } from "react";
+// import {
+//   GoogleMap,
+//   LoadScript,
+//   Marker,
+//   InfoWindow,
+// } from "@react-google-maps/api";
+
+// const mapContainerStyle = {
+//   width: "100%",
+//   height: "100vh",
+// };
+
+// const center = {
+//   lat: 40.99069595336914,
+//   lng: 28.797225952148438,
+// };
+
+// export default function Intro() {
+//   const [open, setOpen] = useState(false);
+
+//   const onMarkerClick = () => {
+//     setOpen(true);
+//   };
+
+//   const onCloseClick = () => {
+//     setOpen(false);
+//   };
+
+//   return (
+//     <LoadScript googleMapsApiKey={"AIzaSyCu1N7Bs0vFPm1_qBiE9VR2citXSrES6zs"}>
+//       <GoogleMap
+//         mapContainerStyle={mapContainerStyle}
+//         zoom={14}
+//         center={center}
+//       >
+//         <Marker position={center} onClick={onMarkerClick} />
+
+//         {open && (
+//           <InfoWindow position={center} onCloseClick={onCloseClick}>
+//             <p>My location</p>
+//           </InfoWindow>
+//         )}
+//       </GoogleMap>
+//     </LoadScript>
+//   );
+// }
 import React, { useState, useEffect } from "react";
 import {
-  View,
-  TextInput,
-  Button,
-  Linking,
-  StyleSheet,
-  Text,
-} from "react-native";
-import * as Location from "expo-location";
+  GoogleMap,
+  LoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
+import axios from "axios";
 
-export default function AddressPage() {
-  const [address, setAddress] = useState("");
-  const [location, setLocation] = useState(null);
+const mapContainerStyle = {
+  width: "100%",
+  height: "100vh",
+};
+
+export default function Intro() {
+  const [center, setCenter] = useState({ lat: 40.9906, lng: 28.7972 });
+  const [places, setPlaces] = useState([]);
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.error("Permission to access location was denied");
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      const response = await Location.reverseGeocodeAsync(location.coords);
-      setAddress(`${response[0].city}, ${response[0].country}`); // Displaying city and country
-    })();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const currentLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setCenter(currentLocation);
+
+          const response = await axios.get(
+            `https://maps.googleapis.com/maps/api/place/nearbysearch/json`,
+            {
+              params: {
+                location: `${currentLocation.lat},${currentLocation.lng}`,
+                radius: 1000,
+                type: "restaurant",
+                key: "AIzaSyCu1N7Bs0vFPm1_qBiE9VR2citXSrES6zs",
+              },
+            }
+          );
+
+          if (response.data.status === "OK") {
+            setPlaces(response.data.results);
+          }
+        },
+        (err) => console.error(err)
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
   }, []);
 
-  const handleCall = () => {
-    const phoneNumber = "+905526300460"; // Replace with the actual phone number
-    Linking.openURL(`tel:${phoneNumber}`);
+  const onMarkerClick = (place) => {
+    setSelectedPlace(place);
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        Your Location:{" "}
-        {location
-          ? `${location.coords.latitude}, ${location.coords.longitude}`
-          : "Fetching..."}
-      </Text>
-      <Text style={styles.title}>Your Address: {address}</Text>
-      <Button title="Call" onPress={handleCall} />
-    </View>
+    <LoadScript googleMapsApiKey="AIzaSyCu1N7Bs0vFPm1_qBiE9VR2citXSrES6zs">
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        zoom={14}
+        center={center}
+      >
+        {places.map((place) => (
+          <Marker
+            key={place.id}
+            position={{
+              lat: place.geometry.location.lat,
+              lng: place.geometry.location.lng,
+            }}
+            onClick={() => onMarkerClick(place)}
+          />
+        ))}
+
+        {selectedPlace && (
+          <InfoWindow
+            position={{
+              lat: selectedPlace.geometry.location.lat,
+              lng: selectedPlace.geometry.location.lng,
+            }}
+            onCloseClick={() => setSelectedPlace(null)}
+          >
+            <div>
+              <h3>{selectedPlace.name}</h3>
+              <p>{selectedPlace.vicinity}</p>
+            </div>
+          </InfoWindow>
+        )}
+      </GoogleMap>
+    </LoadScript>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    backgroundColor: "rgb(32, 32, 36)",
-  },
-  title: {
-    fontSize: 20,
-    color: "turquoise",
-    marginBottom: 30,
-    textAlign: "center",
-  },
-});

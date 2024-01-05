@@ -21,11 +21,11 @@ const Login = ({ navigation }) => {
 
   const navigateBasedOnProgress = (userProgress) => {
     if (!userProgress.firstScreenCompleted) {
-      navigation.navigate('FirstScreen');
+      navigation.navigate("FirstScreen");
     } else if (!userProgress.questionScreenCompleted) {
-      navigation.navigate('QuestionScreen');
+      navigation.navigate("QuestionScreen");
     } else {
-      navigation.navigate('FormDataScreen');
+      navigation.navigate("FormDataScreen");
     }
   };
 
@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
       return;
     }
 
-    const serverUrl = "http://192.168.1.126:3000/login"; // Use your server URL here
+    const serverUrl = "http://192.168.1.156:3000/login"; // Use your server URL here
 
     try {
       const response = await axios.post(serverUrl, {
@@ -76,8 +76,6 @@ const Login = ({ navigation }) => {
         alert("An error occurred during login.");
       }
     }
-
-    
   };
 
   return (

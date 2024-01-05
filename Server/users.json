@@ -22,5 +22,13 @@
     "surname": "4",
     "password": "$2b$10$0yn2FISY5wvXWFXCaWdW0.Xzva2QeZx4QVx8EcIuBTwXgq4hX985e",
     "role": "user"
+  },
+  {
+    "idCard": "141",
+    "email": "141",
+    "name": "141",
+    "surname": "141",
+    "password": "$2b$10$J.Ll7hlqtM83refJiRbLB./24i7AaxbmVeF2UXZ70O0nupRkU70qi",
+    "role": "user"
   }
 ]

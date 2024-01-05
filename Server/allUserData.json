@@ -75,5 +75,31 @@
     "familyCongenitalDisease": "4",
     "smokingAlcohol": "smoking",
     "familyHeartProblems": "Yes"
+  },
+  {
+    "idCard": "141",
+    "email": "141",
+    "name": "141",
+    "surname": "141",
+    "age": 22,
+    "height": 105,
+    "weight": 47,
+    "maritalStatus": "Widowed",
+    "firstScreenCompleted": true,
+    "questionScreenCompleted": true,
+    "diseases": "wa",
+    "medicalConditions": "adaw",
+    "pastDiseases": "adwa",
+    "hypertensionDiabetes": "adwa",
+    "allergiesDetails": "ada",
+    "epilepsySyncopal": "dawda",
+    "chronicConditions": "adwa",
+    "regularMedication": "adawd",
+    "medicationSideEffects": "adwa",
+    "drugAddiction": "adwa",
+    "surgicalOperations": "adwd",
+    "familyCongenitalDisease": "adaw",
+    "smokingAlcohol": "adwad",
+    "familyHeartProblems": "adaw"
   }
 ]

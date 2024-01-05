@@ -9,18 +9,24 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/webpack-config": "^19.0.0",
+    "@react-google-maps/api": "^2.19.2",
     "@react-native-community/datetimepicker": "7.2.0",
     "@react-native-picker/picker": "2.4.10",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
-    "axios": "^1.6.2",
+    "@vis.gl/react-google-maps": "^0.4.2",
+    "axios": "^1.6.4",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "expo": "~49.0.15",
+    "expo-camera": "~13.4.4",
     "expo-file-system": "~15.4.5",
+    "expo-location": "~16.1.0",
     "expo-status-bar": "~1.6.0",
     "express": "^4.18.2",
     "react": "18.2.0",
+    "react-dom": "^18.2.0",
     "react-native": "0.72.6",
     "react-native-country-picker-modal": "^2.0.0",
     "react-native-datepicker": "^1.7.2",
@@ -31,9 +37,7 @@
     "react-native-segmented-control-tab": "^4.0.0",
     "react-native-web": "~0.19.6",
     "react-navigation": "^5.0.0",
-    "rn-fetch-blob": "^0.12.0",
-    "expo-camera": "~13.4.4",
-    "expo-location": "~16.1.0"
+    "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

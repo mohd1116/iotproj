@@ -83,5 +83,22 @@
     "familyCongenitalDisease": "4",
     "smokingAlcohol": "smoking",
     "familyHeartProblems": "Yes"
+  },
+  {
+    "idCard": "141",
+    "diseases": "wa",
+    "medicalConditions": "adaw",
+    "pastDiseases": "adwa",
+    "hypertensionDiabetes": "adwa",
+    "allergiesDetails": "ada",
+    "epilepsySyncopal": "dawda",
+    "chronicConditions": "adwa",
+    "regularMedication": "adawd",
+    "medicationSideEffects": "adwa",
+    "drugAddiction": "adwa",
+    "surgicalOperations": "adwd",
+    "familyCongenitalDisease": "adaw",
+    "smokingAlcohol": "adwad",
+    "familyHeartProblems": "adaw"
   }
 ]

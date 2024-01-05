@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import axios from "axios";
 import { Alert } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { useUser } from "./Components/UserContext";
-
+import QuestionForm from "./Components/QuestionForm";
 const QuestionScreen = ({ navigation }) => {
   const { idCard } = useUser();
   const [responses, setResponses] = useState({
@@ -30,17 +30,59 @@ const QuestionScreen = ({ navigation }) => {
     smokingAlcohol: "",
     familyHeartProblems: "",
   });
-  const smokingAlcoholItems = [
-    { label: "smoking", value: "smoking" },
-    { label: "smoking and drinking", value: "smoking and drinking" },
-    { label: "drinking", value: "drinking" },
-    { label: "dont do both", value: "dont do both" },
+  const questions = [
+    { id: "diseases", question: "Do you have any diseases?" },
+    {
+      id: "medicalConditions",
+      question: "Do you have any medical conditions?",
+    },
+    {
+      id: "pastDiseases",
+      question: "Did you suffer from any diseases in the past?",
+    },
+    {
+      id: "hypertensionDiabetes",
+      question: "What about hypertension and diabetes?",
+    },
+    { id: "allergiesDetails", question: "Do you have any allergies?" },
+    {
+      id: "epilepsySyncopal",
+      question: "What about epilepsy or syncopal episodes?",
+    },
+    {
+      id: "chronicConditions",
+      question: "Do you have any chronic medical conditions?",
+    },
+    {
+      id: "regularMedication",
+      question: "Are you taking any medicine or drug regularly?",
+    },
+    {
+      id: "medicationSideEffects",
+      question:
+        "Have you noticed any side effects from the medication you currently take?",
+    },
+    { id: "drugAddiction", question: "Are you addicted to any drugs?" },
+    {
+      id: "surgicalOperations",
+      question: "Have you undergone any surgical operations during your life?",
+    },
+    {
+      id: "familyCongenitalDisease",
+      question:
+        "Do you have someone in your family who has a congenital disease?",
+    },
+    { id: "smokingAlcohol", question: "Do you smoke and/or drink alcohol?" },
+    {
+      id: "familyHeartProblems",
+      question: "Do you have someone in your family who has heart problems?",
+    },
   ];
-  const handleChange = (name, value) => {
-    setResponses((prevResponses) => ({
-      ...prevResponses,
-      [name]: value,
-    }));
+
+  const handleChange = (id, value) => {
+    console.log(`Updating field ${id} with value: ${value}`);
+    setResponses({ ...responses, [id]: value });
+    console.log("Current responses:", responses);
   };
 
   const handleSubmit = async () => {
@@ -70,7 +112,7 @@ const QuestionScreen = ({ navigation }) => {
       Alert.alert("Missing Information", "Please fill in all fields");
       return;
     }
-    const serverUrl = "http://192.168.1.126:3000/questions"; 
+    const serverUrl = "http://192.168.1.156:3000/questions"; // Replace with your server URL
 
     try {
       const response = await axios.post(serverUrl, {
@@ -92,8 +134,8 @@ const QuestionScreen = ({ navigation }) => {
       });
 
       if (response.data.success) {
-        Alert.alert("Success", "Form submitted successfully");
-        navigation.navigate("FormDataScreen"); 
+        Alert.alert("Form Submitted", "Now you can call your doctor :)");
+        navigation.navigate("FormDataScreen"); //this should navigate to your last page AHMED
       } else {
         Alert.alert("Error", response.data.error || "Form submission failed");
       }
@@ -101,6 +143,8 @@ const QuestionScreen = ({ navigation }) => {
       if (axios.isAxiosError(error)) {
         if (error.response) {
           // Customize based on your backend response
+          console.log("Form responses:", error.response);
+
           Alert.alert("Submission Error", "Error: " + error.response.status);
         } else {
           Alert.alert("Network Error", "Network error or server is down");
@@ -114,161 +158,12 @@ const QuestionScreen = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
-      <View style={styles.formContainer}>
-        <Text style={styles.label}>Do you have any diseases?</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g., high blood pressure, diabetes"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("diseases", text)}
-          value={responses.diseases}
-        />
-
-        <Text style={styles.label}>Do you have any medical conditions?</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g., sleep apnea, chronic kidney disease"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("medicalConditions", text)}
-          value={responses.medicalConditions}
-        />
-
-        <Text style={styles.label}>
-          Did you suffer from any diseases in the past?
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g., childhood asthma, past infections"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("pastDiseases", text)}
-          value={responses.pastDiseases}
-        />
-
-        <Text style={styles.label}>What about hypertension and diabetes?</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Specify if you have/had either"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("hypertensionDiabetes", text)}
-          value={responses.hypertensionDiabetes}
-        />
-
-        <Text style={styles.label}>Do you have any allergies ?</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g., pollen, peanuts, penicillin"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("allergiesDetails", text)}
-          value={responses.allergiesDetails}
-        />
-
-        <Text style={styles.label}>
-          What about epilepsy or syncopal episodes?
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Indicate any history of seizures or fainting"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("epilepsySyncopal", text)}
-          value={responses.epilepsySyncopal}
-        />
-
-        <Text style={styles.label}>
-          Do you have any chronic medical conditions ?
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g., chronic bronchitis, heart disease"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("chronicConditions", text)}
-          value={responses.chronicConditions}
-        />
-
-        <Text style={styles.label}>
-          Are you taking any medicine or drug regularly?
-        </Text>
-        <TextInput
-          style={styles.input}
-          multiline={true}
-          placeholder="List any regular use (add ',' between each one)"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("regularMedication", text)}
-          value={responses.regularMedication}
-        />
-
-        <Text style={styles.label}>
-          Have you noticed any side effects from the medication you currently
-          take?
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g., dizziness, stomach upset"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("medicationSideEffects", text)}
-          value={responses.medicationSideEffects}
-        />
-
-        <Text style={styles.label}>Are you addicted to any drugs ?</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="(Don't worry it will save on your local storage only)"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("drugAddiction", text)}
-          value={responses.drugAddiction}
-        />
-
-        <Text style={styles.label}>
-          Have you undergone any surgical operations during your life ?
-        </Text>
-        <TextInput
-          style={styles.input}
-          multiline={true}
-          placeholder="List any past surgeries"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("surgicalOperations", text)}
-          value={responses.surgicalOperations}
-        />
-
-        <Text style={styles.label}>
-          Do you have someone of your family who has a congenital disease ?
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g., family history of cystic fibrosis"
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          onChangeText={(text) => handleChange("familyCongenitalDisease", text)}
-          value={responses.familyCongenitalDisease}
-        />
-
-        <Text style={styles.label}>do you smoke and/or drinking alcohol?</Text>
-        <RNPickerSelect
-          style={pickerSelectStyles}
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          placeholder={{ label: "Select your Status", value: null }}
-          items={smokingAlcoholItems}
-          onValueChange={(value) => handleChange("smokingAlcohol", value)}
-          value={responses.smokingAlcohol}
-          useNativeAndroidPickerStyle={false}
-        />
-
-        <Text style={styles.label}>
-          Do you have someone of your family who has a congenital disease ?
-        </Text>
-        <RNPickerSelect
-          style={pickerSelectStyles}
-          placeholderTextColor="rgba(255, 255, 255, 0.7)"
-          items={[
-            { label: "Yes", value: "Yes" },
-            { label: "No", value: "No" },
-          ]}
-          onValueChange={(value) => handleChange("familyHeartProblems", value)}
-          value={responses.familyHeartProblems}
-        />
-
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-      </View>
+      <QuestionForm
+        questions={questions}
+        responses={responses}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
     </ScrollView>
   );
 };

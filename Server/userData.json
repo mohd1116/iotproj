@@ -25,5 +25,14 @@
     "maritalStatus": "Single",
     "firstScreenCompleted": true,
     "questionScreenCompleted": true
+  },
+  {
+    "idCard": "141",
+    "age": 22,
+    "height": 105,
+    "weight": 47,
+    "maritalStatus": "Widowed",
+    "firstScreenCompleted": true,
+    "questionScreenCompleted": true
   }
 ]
