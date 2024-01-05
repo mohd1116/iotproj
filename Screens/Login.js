@@ -19,13 +19,23 @@ const Login = ({ navigation }) => {
     navigation.navigate("SignUp"); // if there is no account
   };
 
+  const navigateBasedOnProgress = (userProgress) => {
+    if (!userProgress.firstScreenCompleted) {
+      navigation.navigate('FirstScreen');
+    } else if (!userProgress.questionScreenCompleted) {
+      navigation.navigate('QuestionScreen');
+    } else {
+      navigation.navigate('FormDataScreen');
+    }
+  };
+
   const handleLogin = async () => {
     if (!idCard || !password) {
       alert("Please enter your email and password");
       return;
     }
 
-    const serverUrl = "http://10.0.2.2:3000/login"; // Use your server URL here
+    const serverUrl = "http://192.168.1.126:3000/login"; // Use your server URL here
 
     try {
       const response = await axios.post(serverUrl, {
@@ -36,11 +46,17 @@ const Login = ({ navigation }) => {
       if (response.data.success) {
         alert("Login Successful!");
         // Navigate based on user role
-        if (response.data.user.role === "doctor") {
-          navigation.navigate("VideoCallPage"); // Replace with your video call screen route
-        } else if (response.data.user.role === "user") {
-          navigation.navigate("FormDataScreen"); // Replace with your user home screen route
-        }
+        // if (response.data.user.role === "doctor") {
+        //   navigation.navigate("VideoCallPage"); // Replace with your video call screen route
+        // } else if (response.data.user.role === "user") {
+        //   navigation.navigate("FormDataScreen"); // Replace with your user home screen route
+        // }
+        const userProgress = {
+          firstScreenCompleted: response.data.user.firstScreenCompleted,
+          questionScreenCompleted: response.data.user.questionScreenCompleted,
+        };
+
+        navigateBasedOnProgress(userProgress);
       } else {
         alert(response.data.error || "Login failed");
       }
@@ -60,6 +76,8 @@ const Login = ({ navigation }) => {
         alert("An error occurred during login.");
       }
     }
+
+    
   };
 
   return (

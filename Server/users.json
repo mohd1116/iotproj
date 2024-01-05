@@ -1,10 +1,26 @@
 [
   {
-    "idCard": "121",
-    "email": "121",
-    "name": "121",
-    "surname": "121",
-    "password": "$2b$10$kfJJVGPmL/fbMWaJziOcnuaGXrIv1TnBrppRIqqOxLHQ3cOO/YOSW",
+    "idCard": "3",
+    "email": "3",
+    "name": "3",
+    "surname": "3",
+    "password": "$2b$10$pn9G0A20YBNhhLnhlnbaFO9xgYdSRNf9sj6ETIb8lvvKCzu8k9FBe",
+    "role": "user"
+  },
+  {
+    "idCard": "5",
+    "email": "5",
+    "name": "5",
+    "surname": "5",
+    "password": "$2b$10$13saEjvDJVAeZqi4YBBUteJDD0E4/gUL6GrOWr6fUV4NahrO2Iqhu",
+    "role": "user"
+  },
+  {
+    "idCard": "4",
+    "email": "4",
+    "name": "4",
+    "surname": "4",
+    "password": "$2b$10$0yn2FISY5wvXWFXCaWdW0.Xzva2QeZx4QVx8EcIuBTwXgq4hX985e",
     "role": "user"
   }
 ]

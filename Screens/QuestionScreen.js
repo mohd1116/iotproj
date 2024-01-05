@@ -70,7 +70,7 @@ const QuestionScreen = ({ navigation }) => {
       Alert.alert("Missing Information", "Please fill in all fields");
       return;
     }
-    const serverUrl = "http://10.0.2.2:3000/questions"; // Replace with your server URL
+    const serverUrl = "http://192.168.1.126:3000/questions"; 
 
     try {
       const response = await axios.post(serverUrl, {
@@ -93,7 +93,7 @@ const QuestionScreen = ({ navigation }) => {
 
       if (response.data.success) {
         Alert.alert("Success", "Form submitted successfully");
-        navigation.navigate("FormDataScreen"); //this should navigate to your last page AHMED
+        navigation.navigate("FormDataScreen"); 
       } else {
         Alert.alert("Error", response.data.error || "Form submission failed");
       }

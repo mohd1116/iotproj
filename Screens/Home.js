@@ -3,7 +3,7 @@ import { Image, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const Home = ({ navigation }) => {
   const goToLogin = () => {
-    navigation.navigate("emergancyCall");
+    navigation.navigate("LogIn");
   };
   const goToSignUp = () => {
     navigation.navigate("SignUp");

@@ -1,16 +1,1 @@
-[
-    {
-        "idCard": "1",
-        "name": "Dr. Smith",
-        "specialty": "Cardiologist",
-        "password": "$2b$10$ygKYww7gKDQlinxdz98MFOJ5XzPmcyfsc4UcHeNyCSHJ2a0xSuNh.",
-        "role": "doctor"
-    },
-    {
-        "idCard": "2",
-        "name": "Dr. Johnson",
-        "specialty": "Dermatologist",
-        "password": "$2b$10$ygKYww7gKDQlinxdz98MFOJ5XzPmcyfsc4UcHeNyCSHJ2a0xSuNh.",
-        "role": "doctor"
-    }
-]
+[]

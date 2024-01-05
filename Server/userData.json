@@ -1,23 +1,29 @@
 [
   {
-    "idCard": "1",
-    "age": 18,
-    "height": 100,
-    "weight": 40,
-    "maritalStatus": "Single"
+    "idCard": "3",
+    "age": 25,
+    "height": 107,
+    "weight": 48,
+    "maritalStatus": "Single",
+    "firstScreenCompleted": true,
+    "questionScreenCompleted": true
   },
   {
-    "idCard": "2",
-    "age": 22,
-    "height": 171,
-    "weight": 62,
-    "maritalStatus": "Single"
+    "idCard": "5",
+    "age": 25,
+    "height": 107,
+    "weight": 49,
+    "maritalStatus": "Single",
+    "firstScreenCompleted": true,
+    "questionScreenCompleted": true
   },
   {
-    "idCard": "121",
-    "age": 22,
-    "height": 105,
-    "weight": 46,
-    "maritalStatus": "Divorced"
+    "idCard": "4",
+    "age": 24,
+    "height": 106,
+    "weight": 55,
+    "maritalStatus": "Single",
+    "firstScreenCompleted": true,
+    "questionScreenCompleted": true
   }
 ]
